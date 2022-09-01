@@ -1,0 +1,9 @@
+{
+	"name": "mydatafactorytesttony",
+	"location": "australiaeast",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "78c28e13-318a-4a85-82e7-59cf6fbb94d0",
+		"tenantId": "87719ead-c073-4858-b9a5-af39bd9dced3"
+	}
+}
