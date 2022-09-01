@@ -1,6 +1,10 @@
 {
 	"name": "FuelWatch",
 	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
 		"folder": {
 			"name": "FuelWatch"
 		},
