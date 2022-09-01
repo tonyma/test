@@ -243,6 +243,202 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Copy Data to SQL",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Copy Data to Storgae",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 1,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ParquetSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": "truncate table [dbo].[FuelPrice]",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "rss_channel_item'][0]['title",
+									"type": "String"
+								},
+								"sink": {
+									"name": "title",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "rss_channel_item'][0]['description",
+									"type": "String"
+								},
+								"sink": {
+									"name": "description",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "brand",
+									"type": "String"
+								},
+								"sink": {
+									"name": "brand",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "date",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "date",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "price",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "price",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"name": "trading-name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "trading-name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "location",
+									"type": "String"
+								},
+								"sink": {
+									"name": "location",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "address",
+									"type": "String"
+								},
+								"sink": {
+									"name": "address",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "phone",
+									"type": "String"
+								},
+								"sink": {
+									"name": "phone",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "latitude",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "latitude",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"name": "longitude",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "longitude",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"name": "site-features",
+									"type": "String"
+								},
+								"sink": {
+									"name": "site-features",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "FuelWatch",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Data Model",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Copy Data to SQL",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 70,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"compute": {
+						"coreCount": 16,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
 			}
 		],
 		"annotations": [],
