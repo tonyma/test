@@ -27,6 +27,15 @@
 							"namespaces": true
 						}
 					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
@@ -225,6 +234,12 @@
 				"inputs": [
 					{
 						"referenceName": "Source_FuelWatch",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "FuelWatch",
 						"type": "DatasetReference"
 					}
 				]
