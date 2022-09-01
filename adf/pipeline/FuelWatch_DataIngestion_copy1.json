@@ -1,0 +1,237 @@
+{
+	"name": "FuelWatch_DataIngestion_copy1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy Data to Storgae",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "XmlSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "XmlReadSettings",
+							"validationMode": "none",
+							"namespaces": true
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "['title']"
+								},
+								"sink": {
+									"name": "rss_channel_item'][0]['title"
+								}
+							},
+							{
+								"source": {
+									"path": "['description']"
+								},
+								"sink": {
+									"name": "rss_channel_item'][0]['description"
+								}
+							},
+							{
+								"source": {
+									"path": "['brand']"
+								},
+								"sink": {
+									"name": "brand"
+								}
+							},
+							{
+								"source": {
+									"path": "['date']"
+								},
+								"sink": {
+									"name": "date"
+								}
+							},
+							{
+								"source": {
+									"path": "['price']"
+								},
+								"sink": {
+									"name": "price"
+								}
+							},
+							{
+								"source": {
+									"path": "['trading-name']"
+								},
+								"sink": {
+									"name": "trading-name"
+								}
+							},
+							{
+								"source": {
+									"path": "['location']"
+								},
+								"sink": {
+									"name": "location"
+								}
+							},
+							{
+								"source": {
+									"path": "['address']"
+								},
+								"sink": {
+									"name": "address"
+								}
+							},
+							{
+								"source": {
+									"path": "['phone']"
+								},
+								"sink": {
+									"name": "phone",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['latitude']"
+								},
+								"sink": {
+									"name": "latitude",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"path": "['longitude']"
+								},
+								"sink": {
+									"name": "longitude",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"path": "['site-features']"
+								},
+								"sink": {
+									"name": "site-features"
+								}
+							},
+							{
+								"source": {
+									"path": "$['rss']['channel']['title']"
+								},
+								"sink": {
+									"name": "rss_channel_title"
+								}
+							},
+							{
+								"source": {
+									"path": "$['rss']['channel']['ttl']"
+								},
+								"sink": {
+									"name": "ttl"
+								}
+							},
+							{
+								"source": {
+									"path": "$['rss']['channel']['link']"
+								},
+								"sink": {
+									"name": "rss_channel_link"
+								}
+							},
+							{
+								"source": {
+									"path": "$['rss']['channel']['description']"
+								},
+								"sink": {
+									"name": "rss_channel_description"
+								}
+							},
+							{
+								"source": {
+									"path": "$['rss']['channel']['language']"
+								},
+								"sink": {
+									"name": "language"
+								}
+							},
+							{
+								"source": {
+									"path": "$['rss']['channel']['copyright']"
+								},
+								"sink": {
+									"name": "copyright"
+								}
+							},
+							{
+								"source": {
+									"path": "$['rss']['channel']['lastBuildDate']"
+								},
+								"sink": {
+									"name": "lastBuildDate"
+								}
+							},
+							{
+								"source": {
+									"path": "$['rss']['channel']['image']['url']"
+								},
+								"sink": {
+									"name": "url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['rss']['channel']['image']['title']"
+								},
+								"sink": {
+									"name": "rss_channel_image_title"
+								}
+							},
+							{
+								"source": {
+									"path": "$['rss']['channel']['image']['link']"
+								},
+								"sink": {
+									"name": "rss_channel_image_link"
+								}
+							},
+							{
+								"source": {
+									"path": "$['rss']['@version']"
+								},
+								"sink": {
+									"name": "@@version"
+								}
+							}
+						],
+						"collectionReference": "$['rss']['channel']['item']"
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Source_FuelWatch",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-08-13T10:29:50Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
