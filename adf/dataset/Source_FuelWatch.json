@@ -1,0 +1,20 @@
+{
+	"name": "Source_FuelWatch",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "FuelWatch",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "FuelWatch"
+		},
+		"annotations": [],
+		"type": "Xml",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
