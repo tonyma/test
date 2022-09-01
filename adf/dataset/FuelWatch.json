@@ -1,0 +1,27 @@
+{
+	"name": "FuelWatch",
+	"properties": {
+		"folder": {
+			"name": "FuelWatch"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "feed.parquet",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@concat('FuelWatch/',utcnow('yyyy-MM-dd'))",
+					"type": "Expression"
+				},
+				"container": "raw"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
